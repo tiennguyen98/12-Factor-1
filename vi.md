@@ -1,7 +1,7 @@
 # 12-factor
 
 ## Giới thiệu
-Trong thời buổi hiện đại ngày nay, phần mềm thường được cung cấp dưới dạng dịch vụ và được gọi chung là các ứng dụng web hoặc "Phần mềm như một dịch vụ". Phần mềm tuân theo "12 quy chuẩn" là một phương pháp luận để xây dựng các ứng dụng dạng "Phần mềm như một dịch vụ" mà thỏa mãn các yếu tố sau:
+Trong thời buổi hiện đại ngày nay, phần mềm thường được cung cấp dưới dạng dịch vụ và được gọi chung là các ứng dụng web hoặc "Phần mềm dưới dạng dịch vụ". Phần mềm tuân theo "12 quy chuẩn" là một phương pháp luận để xây dựng các ứng dụng dạng "Phần mềm dưới dạng dịch vụ" mà thỏa mãn các yếu tố sau:
 
 - Sử dụng các định dạng được khai báo để phục vụ cho việc tự động hóa cài đặt. Giảm thiểu tối đa thời gian và chi phí để các nhà phát triển khác tham gia dự án;
 - Có các quy ước rõ ràng với hệ điều hành bên dưới, tối ưu hóa tính di dộng giữa các môi trường thực thi.
@@ -14,7 +14,7 @@ Phương pháp luận "12 quy chuẩn" có thể áp dụng cho các ứng dụn
 ## Cơ sở của bài viết
 Các tác giả đóng góp cho tài liệu này đã trực tiếp tham gia vào các quá trình phát triển và triển khai của hàng trăm ứng dụng. Họ cũng gián tiếp chứng kiến quá trình phát triển, vận hành và mở rộng của hàng trăm nghìn ứng dụng thông qua nền tảng Heroku.
 
-Tài liệu này tổng hợp tất cả các kinh nghiệm và quan sát của chúng tôi trên rất nhiều ứng dụng dạng "phần mềm như một dịch vụ". Nó bao gồm 3 yếu tố quan trọng mà bất kỳ quy trình phát triển ứng dụng lý tưởng nào cũng cần có. Nó bao gồm việc tập trung vào sự phát triển linh động của một ứng dụng theo thời gian, tính linh động trong việc cộng tác giữa các nhà phát triển trên nền code của ứng dụng, và tránh các chi phí phát sinh tạo ra bởi sự hao mòn của phần mềm.
+Tài liệu này tổng hợp tất cả các kinh nghiệm và quan sát của chúng tôi trên rất nhiều ứng dụng dạng "phần mềm dưới dạng dịch vụ". Nó bao gồm 3 yếu tố quan trọng mà bất kỳ quy trình phát triển ứng dụng lý tưởng nào cũng cần có. Nó bao gồm việc tập trung vào sự phát triển linh động của một ứng dụng theo thời gian, tính linh động trong việc cộng tác giữa các nhà phát triển trên nền code của ứng dụng, và tránh các chi phí phát sinh tạo ra bởi sự hao mòn của phần mềm.
 
 Mục đích của chúng tôi là nâng cao nhận thức về những vấn đề có tính hệ thống mà chúng tôi đã chứng kiến trong việc phát triển các ứng dụng hiện đại. Ngoài ra, chúng tôi cũng mong muốn cung cấp các từ vựng chung để sử dụng trong việc bàn luận về những vấn đề này, và để mang đến một tập các giải pháp rộng lớn có tính khái niệm cho các vấn đề với các thuật ngữ tương ứng. Định dạng của tài liệu này được lấy cảm hứng từ cuốn sách của Martin Fowler, "Patterns of Enterprise Application Architecture and Refactoring".
 
@@ -32,14 +32,14 @@ Luôn luôn có sự tương quan một-một giữa nền code và ứng dụng
 - Nếu có nhiều nền code thì đó không phải là một ứng dụng - nó là một hệ thống phân cấp. Mỗi thành phần là một hệ thống được phân cấp trong một ứng dụng và mỗi thành phần có thể tuân theo "12 quy chuẩn" một cách riêng biệt.
 - Nhiều ứng dụng chia sẻ cùng đoạn code là một sự vi phạm trong "12 quy chuẩn". Giải pháp ở đây là quản lý các đoạn code được dùng chung thành các thư viện mà ta có thể sử dụng thông qua dependency manager.
 
-Chỉ có duy nhất một nền code cho mỗi ứng dụng, nhưng sẽ có nhiều bản triển khải của ứng dụng. Một bản triển khai là một thực thể đang chạy của ứng dụng. Đây thường trang trong môi trường thực thi (production) và một hoặc nhiều phía trang staging. Ngoài ra, mỗi nhà phát triển có một bản sao của ứng dụng đang chạy trên môi trường phát triển nội bộ của họ, mỗi bản sao đó cũng đủ tiêu chuẩn để có thể triển khai thực tế.
+Chỉ có duy nhất một nền code cho mỗi ứng dụng, nhưng sẽ có nhiều bản triển khải của ứng dụng. Một bản triển khai là một thực thể đang chạy của ứng dụng. Đây thường là một trang web sản phẩm và một hoặc nhiều trang web dàn dựng. Ngoài ra, mỗi nhà phát triển có một bản sao của ứng dụng đang chạy trên môi trường phát triển nội bộ của họ, mỗi bản sao đó cũng đủ tiêu chuẩn để có thể triển khai thực tế.
 
 Nền code là chung giữa tất cả các triển khai, mặc dù các phiên bản khác nhau có thể hoạt động hoặc không hoạt động trong mỗi triển khai. Ví dụ, một nhà phát triển có vài commit chưa triển khai đến staging, staging có vài commit chưa được triển khai tới production. Nhưng chúng đều dùng chung nền codebase, điều này làm chúng được phân biệt là các triển khai khác nhau của cùng một ứng dụng
 
 #### II. Các phụ thuộc
 ###### Khai báo rõ ràng và tách biệt các phụ thuộc
 
-Hầu hết các ngôn ngữ lập trình đều cung cấp một hệ thống đóng gói cho các thư viện có hỗ trợ việc phân phối như CPAN cho Perl hoặc Rubygems cho Ruby. Các thư viện được cài đặt thông qua hệ thống packaging có thể được cài đặt ở mức hệ thống ( được gọi là các “site package”) hoặc chỉ thu hẹp phạm vi trong thư mục chứa ứng dụng ( được gọi là “vendoring” hoặc “bundling”).
+Hầu hết các ngôn ngữ lập trình đều cung cấp một hệ thống package để phân phối các thư viện hỗ trợ, chẳng hạn như CPAN cho Perl hoặc Rubygems cho Ruby. Các thư viện được cài đặt thông qua hệ thống packaging có thể được cài đặt ở mức hệ thống ( được gọi là các “site package”) hoặc chỉ thu hẹp phạm vi trong thư mục chứa ứng dụng ( được gọi là “vendoring” hoặc “bundling”).
 
 Một ứng dụng tuân theo "12 quy chuẩn" không bao giờ phụ thuộc vào sự tồn tại ngầm của các package ở mức hệ thống. Nó sẽ khai báo tất cả các phụ thuộc một hoàn thiện và chính xác thông qua một bản khai báo phụ thuộc. Ngoài ra, nó sử dụng một công cụ cô lập các phụ thuộc trong quá trình thực thi để đảm bảo rằng không có phụ thuộc ngầm nào “lọt vào”  từ các hệ thống xung quanh. Đặc tả phụ thuộc đầy đủ và chi tiết được áp dụng một cách thống nhất trong cả môi trường thực thi và phát triển.
 
